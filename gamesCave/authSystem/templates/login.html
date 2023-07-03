@@ -1,0 +1,9 @@
+
+<h1>Panel logowania</h1>
+{%if error %}
+<h3>{{error}}</h3>
+{% endif %}
+<form action="{%url 'loginUser'%}" method="POST">
+	{{form}} {% csrf_token %}
+	<button type="submit">Zaloguj</button>
+</form>

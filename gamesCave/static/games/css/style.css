@@ -1,0 +1,431 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html {
+	min-width: 1044px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: url("/static/games/images/background_diablo_4.jpg");
+	background-size: cover;
+}
+body {
+	width: 100%;
+	max-width: 1500px;
+	min-width: 933px;
+	background-color: #0c111b;
+	position: relative;
+	font-family: roboto, sans-serif;
+}
+
+.navbar {
+	width: 100%;
+	max-width: 1500px;
+	height: 80px;
+	top: 0;
+	left: 0;
+	padding: 0 4%;
+	background-color: #0c111b;
+	z-index: 9;
+	display: flex;
+	align-items: center;
+}
+
+.brand-logo {
+	height: 70px;
+}
+
+.nav-links {
+	margin-top: 10px;
+	display: flex;
+	list-style: none;
+}
+
+.nav-items a {
+	text-decoration: none;
+	margin-left: 20px;
+	text-transform: capitalize;
+	color: white;
+	opacity: 0.9;
+}
+
+.right-container {
+	display: block;
+	margin-left: auto;
+}
+
+.search-box {
+	border: none;
+	border-bottom: 1px solid #aaa;
+	background-color: transparent;
+	outline: none;
+	height: 30px;
+	color: #fff;
+	width: 250px;
+	text-transform: capitalize;
+	font-size: 16px;
+	font-weight: 500;
+	transition: width 0.5s;
+}
+
+.search-box:focus {
+	width: 300px;
+	border-color: royalblue;
+}
+
+.sub-btn {
+	background-color: #1f80e0;
+	height: 30px;
+	padding: 0 20px;
+	color: #fff;
+	border-radius: 5px;
+	border: none;
+	outline: none;
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 12px;
+	margin: 0 10px;
+	cursor: pointer;
+}
+
+.login-link {
+	color: #fff;
+	opacity: 0.9;
+	text-transform: uppercase;
+	font-size: 15px;
+	font-weight: 700;
+	text-decoration: none;
+}
+
+.main-carousel-container {
+	position: relative;
+	width: 100%;
+	height: 500px;
+	padding: 20px 0;
+	overflow-x: hidden;
+	margin: 20px 0;
+}
+
+.main-carousel {
+	display: flex;
+	width: 92%;
+	height: 100%;
+	position: relative;
+	margin: auto;
+}
+
+.slider {
+	flex: 0 0 auto;
+	margin-right: 30px;
+	position: relative;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 5px;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	transition: 1s;
+	overflow: hidden;
+}
+
+.slider img {
+	width: 70%;
+	min-height: 100%;
+	object-fit: cover;
+	display: block;
+	margin-left: auto;
+}
+
+.slide-content {
+	position: absolute;
+	width: 55%;
+	height: 100%;
+	z-index: 2;
+	background: linear-gradient(to right, #030b17 80%, #0c111b00);
+	color: #fff;
+}
+
+.game-title {
+	padding-left: 50px;
+	text-transform: capitalize;
+	margin-top: 80px;
+}
+
+.game-des {
+	width: 80%;
+	line-height: 30px;
+	padding-left: 50px;
+	margin-top: 30px;
+	opacity: 0.8;
+}
+
+.platform-card-container {
+	position: relative;
+	width: 92%;
+	margin: auto;
+	height: 10vw;
+	min-height: 72px;
+	max-height: 93px;
+	display: flex;
+	margin-bottom: 20px;
+	justify-content: space-around;
+}
+
+.platform-card {
+	position: relative;
+	min-width: calc(100% / 5 - 10px);
+	width: calc(100% / 5 - 10px);
+	max-width: 159px;
+	height: 100%;
+	border-radius: 5px;
+	overflow: hidden;
+	background: #030b17;
+}
+
+.platform-card-image,
+.card-platform {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: flex;
+	justify-content: center; /* Dodane */
+	align-items: center; /* Dodane */
+	font-size: 60px;
+	background: #1d283f;
+	transition: border 0.5s;
+}
+.red-border {
+	border: 1px solid #de1717;
+}
+
+.card-platform {
+	position: relative;
+}
+
+.platform-card:hover .platform-card-image {
+	border: 1px solid #de1717;
+}
+
+/* Moje */
+
+.title {
+	color: #fff;
+	opacity: 0.9;
+	padding-left: 4%;
+	text-transform: capitalize;
+	font-size: 22px;
+	font-weight: 500;
+}
+
+.carousel-container {
+	width: 80%;
+	margin: 20px auto;
+	min-height: 200px;
+	position: relative;
+}
+
+.carousel-container .carousel-inner {
+	overflow: hidden;
+	height: 250px;
+	display: flex;
+	align-items: center;
+}
+
+.carousel-container .track {
+	display: flex;
+	transition: transform 0.3s;
+}
+.carousel-container .my-card-container {
+	width: 150px;
+	flex-shrink: 0;
+	height: 200px;
+	padding-right: 15px;
+	box-sizing: border-box;
+}
+
+.carousel-container .my-card-container .my-card {
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+}
+
+.nav button {
+	width: 5%;
+	height: 100%;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	border: none;
+	cursor: pointer;
+	outline: none;
+	background: linear-gradient(to right, #0c111b 0%, #0c111b00);
+}
+
+.nav .prev {
+	left: -60px;
+}
+.nav .next {
+	right: -60px;
+}
+
+.prev i,
+.next i {
+	width: 15px;
+	height: 20px;
+	opacity: 0;
+}
+
+.prev:hover i,
+.next:hover i {
+	opacity: 1;
+}
+
+.my-card {
+	position: relative;
+	min-width: 130px;
+	width: 100px;
+	height: 150px;
+	border-radius: 5px;
+	overflow: hidden;
+	margin-left: 10px;
+	transition: 0.5s;
+	background: #000;
+}
+.my-card:hover {
+	transform: scale(1.1);
+	border: 1px solid #de1717;
+}
+.my-card:hover .my-card-body {
+	opacity: 1;
+}
+
+.my-card-img {
+	width: 100%;
+	height: 100%;
+	object-fit: fill;
+}
+
+.my-card-body {
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	background: linear-gradient(to bottom, rgba(4, 8, 15, 0), #192133 90%);
+
+	transition: 0.5s;
+	display: flex; /* Dodane */
+	flex-direction: row; /* Dodane */
+	justify-content: space-around; /* Dodane */
+	align-items: flex-end; /* Dodane */
+}
+
+.go,
+.star {
+	opacity: 0.8;
+	font-weight: 500;
+	margin: 10px;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+.go i,
+.star i {
+	height: 20px;
+	width: 20px;
+}
+
+.lista {
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	justify-content: flex-start;
+}
+
+.box {
+	height: 250px;
+	margin-bottom: 25px;
+	float: left;
+	padding-right: 20px;
+	text-decoration: none;
+	overflow: hidden;
+	margin-right: 10px;
+	width: calc(50% - 10px);
+}
+.lista-gry p {
+	max-height: 102px;
+	overflow: hidden;
+	font-size: 14px;
+	line-height: 20px;
+	text-align: justify;
+	margin-bottom: 8px;
+	color: #999;
+}
+
+.accordion {
+	--bs-accordion-bg: transparent;
+	--bs-accordion-active-bg: none;
+	border-color: none;
+}
+
+
+.games-list {
+	width: 95%;
+	margin: 10px auto;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+}
+
+.game-box {
+	height: 200px;
+	width: 360px;
+	min-width: 295px;
+	margin: 5px;
+	border-radius: 10px;
+	display: flex;
+	overflow: hidden;
+}
+
+.left-div {
+	width: 33%;
+}
+.left-div img {
+	object-fit: fit;
+}
+
+.right-divs {
+	width: 67%;
+	display: flex;
+	flex-direction: column;
+}
+
+.right-div1 {
+	/* flex-grow: 5; */
+	height: 30px;
+	display: flex;
+	justify-content: center; /* Wyśrodkowanie poziome */
+	align-items: center; /* Wyśrodkowanie pionowe */
+	font-size: 16px;
+	text-align: justify;
+	color: white;
+}
+
+.right-div2 {
+	flex-grow: 2;
+	padding: 8px; /* Dodaje 5 pikseli wewnętrznego odsunięcia */
+	display: flex;
+	justify-content: center; /* Wyśrodkowanie poziome */
+	align-items: center; /* Wyśrodkowanie pionowe */
+	font-size: 16px;
+	text-align: justify;
+	color: white;
+}
