@@ -1,3 +1,9 @@
+{%if message%}
+	<span>{{message}}</span>
+{% endif %}
+{%if error%}
+	<span>{{error}}</span>
+{% endif %}
 <form method="post" action="{% url 'register' %}"
 {{form}}
 {% csrf_token %}
