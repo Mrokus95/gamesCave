@@ -1,8 +1,13 @@
 from django.shortcuts import render
+from django.contrib.auth.models import User
 
 # Create your views here.
 
 def home(request):
+    if request.user.is_authenticated:
+        user_first_name = request.user.first_name
+    else:
+        user_first_name = ""
     movies = [
         {
             'name': 'Mass Effect',
@@ -31,4 +36,4 @@ def home(request):
         }
     ]
     
-    return render(request, 'home.html', {'movies': movies})
+    return render(request, 'home.html', {'movies': movies, 'user_first_name': user_first_name})

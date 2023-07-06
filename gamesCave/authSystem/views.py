@@ -27,6 +27,11 @@ def register(request):
         password = request.POST.get('password1')
         password2 = request.POST.get('password2')
 
+        log_data = [username, email, password, password2]
+        if any(field is "" for field in log_data):
+            error = ['Please fill all fields']
+            return render(request, 'register.html', {'form': MyRegisterForm(), 'message': error})
+
         # Checking if password == password2 and email/username not in use
         if password == password2:
 
@@ -34,30 +39,30 @@ def register(request):
             usernameIsTaken = User.objects.filter(username=username).exists()
 
             if emailIsTaken and usernameIsTaken:
-                error = 'Email and username already taken'
+                error = ['Email and username already taken']
             elif emailIsTaken:
-                error = 'Email already taken'
+                error = ['Email already taken']
             elif usernameIsTaken:
-                error = 'Username already taken'
+                error = ['Username already taken']
 
             if not emailIsTaken and  not usernameIsTaken:
                 try:
                     validate_password(password)
                 except ValidationError as e:
-                    return render(request, 'register.html',{'form': MyRegisterForm(), 'error': e.message})
+                    return render(request, 'register.html',{'form': MyRegisterForm(), 'message': e.messages})
                 else:
                     emailValid = validate_email(email)
                     if emailValid:
                         form = MyRegisterForm(request.POST)
                         if form.is_valid():
                             inactiveUser = send_verification_email(request, form)
-                            message = 'Conformation email sent.'
+                            message = ['Confirmation email sent.']
                             return render(request, 'register.html',{'form': MyRegisterForm(), 'message': message})
                     else:
-                        error = 'Email validation failed'
+                        error = ['Email validation failed']
         else:
-            error = 'Password mismatch'
-        return render(request, 'register.html',{'form': MyRegisterForm(), 'error': error})
+            error = ['Password mismatch']
+        return render(request, 'register.html',{'form': MyRegisterForm(), 'message': error})
 
 def logInUser(request):
     if request.method == 'GET':
@@ -73,9 +78,9 @@ def logInUser(request):
         else:
             username = User.objects.filter(username=username).exists()
             if username:
-                error = 'Incorrect password'
+                error = ['Incorrect password']
             else:
-                error = 'Invalid username'
+                error = ['Invalid username']
             return render(request, 'login.html', {'form': AuthenticationForm(), 'error': error})
 
 def logOutUser(request):
