@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from verify_email.email_handler import send_verification_email
 from django.core.exceptions import ValidationError
 import re
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetView
 from django.urls import reverse_lazy
 
 
@@ -108,3 +108,23 @@ class CustomPaswordChangeDoneView(PasswordChangeDoneView):
         context = super().get_context_data(**kwargs)
         context['user_first_name'] = self.request.user.first_name
         return context
+
+class CustomPasswordResetView(PasswordResetView):
+    success_url = reverse_lazy("password_reset_done")
+    template_name = "password_reset_form.html"
+    email_template_name = "password_reset_email.html"
+
+class CustomPasswordResetDoneView(PasswordResetDoneView):
+    template_name = "password_reset_done.html"
+
+class CustomPasswordResetConfirmView(PasswordResetConfirmView):
+        success_url = reverse_lazy("password_reset_complete")
+        template_name = "password_reset_confirm.html"
+
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = "password_reset_complete.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
