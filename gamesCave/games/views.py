@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+@login_required
 def home(request):
     if request.user.is_authenticated:
         user_first_name = request.user.first_name

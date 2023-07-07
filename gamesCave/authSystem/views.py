@@ -7,6 +7,9 @@ from django.contrib.auth import authenticate, login, logout
 from verify_email.email_handler import send_verification_email
 from django.core.exceptions import ValidationError
 import re
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.urls import reverse_lazy
+
 
 # Create your views here.
 def validate_email(email):
@@ -72,7 +75,7 @@ def logInUser(request):
         password = request.POST.get('password')
         user = authenticate(username=username, password=password) 
         print(user)
-        if user is not None:
+        if user is not None and user.is_active:
             login(request, user)
             return redirect('home')
         else:
@@ -80,9 +83,28 @@ def logInUser(request):
             if username:
                 error = ['Incorrect password']
             else:
-                error = ['Invalid username']
+                error = ['Invalid or inactive username']
             return render(request, 'login.html', {'form': AuthenticationForm(), 'error': error})
 
 def logOutUser(request):
     logout(request)
     return redirect('home')
+
+
+class CustomPaswordChangeView(PasswordChangeView):
+    template_name = "password_change_form.html"
+    success_url = reverse_lazy("passwordChangeDone")
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_first_name'] = self.request.user.first_name
+        return context
+
+
+class CustomPaswordChangeDoneView(PasswordChangeDoneView):
+    template_name = "password_change_done.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['user_first_name'] = self.request.user.first_name
+        return context

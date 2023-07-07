@@ -455,3 +455,23 @@ body {
 		height: 0px;
 	}
 }
+
+.requirments_list {
+	color: white;
+	background-color: #212529 ;
+	height: 100%;
+	border-radius: 16px;
+	padding: 24px 20px 10px;
+}
+
+
+.requirments_list p{
+	font-size: 24px;
+	padding-bottom: 4px;
+}
+
+.requirments_list li{
+	padding-bottom: 4px;
+	font-size: 16px;
+	list-style-type: none;
+}
