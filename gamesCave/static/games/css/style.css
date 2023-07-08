@@ -51,6 +51,7 @@ body {
 	text-transform: capitalize;
 	color: white;
 	opacity: 0.9;
+	transition: font-size 0.3s;
 }
 
 .right-container {
@@ -474,4 +475,25 @@ body {
 	padding-bottom: 4px;
 	font-size: 16px;
 	list-style-type: none;
+}
+
+.avatar_btn{
+	background:none;
+	border-radius: 50%;
+	margin-right: 4px;
+	overflow: hidden;
+}
+
+.avatar{
+	height: 50px;
+	border-radius: 50%;
+	transition: height 0.3s;
+}
+
+.avatar:hover{
+	height: 55px;
+}
+
+.nav-items a:hover{
+	font-size: 20px;
 }

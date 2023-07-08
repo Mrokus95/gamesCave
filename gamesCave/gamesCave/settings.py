@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'games',
     'authSystem',
+    'profiles',
     "verify_email.apps.VerifyEmailConfig",
     'social_django',
     'django_extensions',
@@ -173,3 +174,7 @@ SOCIAL_AUTH_TWITTER_SCOPE = [
 ]
 SOCIAL_AUTH_TWITTER_KEY = os.environ['SOCIAL_AUTH_TWITTER_KEY']
 SOCIAL_AUTH_TWITTER_SECRET = os.environ['SOCIAL_AUTH_TWITTER_SECRET']
+
+# Images
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media/'

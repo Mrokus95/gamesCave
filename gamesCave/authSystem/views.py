@@ -9,6 +9,7 @@ from django.core.exceptions import ValidationError
 import re
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetView
 from django.urls import reverse_lazy
+from profiles.models import Profile
 
 
 # Create your views here.
@@ -60,6 +61,7 @@ def register(request):
                         if form.is_valid():
                             inactiveUser = send_verification_email(request, form)
                             message = ['Confirmation email sent.']
+                            profile = Profile.objects.create(user=inactiveUser)
                             return render(request, 'register.html',{'form': MyRegisterForm(), 'message': message})
                     else:
                         error = ['Email validation failed']
