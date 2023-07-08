@@ -12,9 +12,9 @@ urlpatterns = [
     path('password_change/done/', views.CustomPaswordChangeDoneView.as_view(), name = 'passwordChangeDone'),
 
     #Reset password
- path('reset_password/', views.CustomPasswordResetView.as_view(), name='password_reset'),
+    path('reset_password/', views.CustomPasswordResetView.as_view(), name='password_reset'),
     path('reset_password/done/', views.CustomPasswordResetDoneView.as_view(), name='password_reset_done'),
-    path('reset_password/confirm/<uidb64>/<token>/', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),
+    path('reset_password/confirm/<uidb64>/<token>/', views.CustomPasswordResetConfirmView.as_view(), name='password_reset_confirm'),    
     path('reset_password/complete/', views.CustomPasswordResetCompleteView.as_view(), name='password_reset_complete'),
    
     #Social Login
