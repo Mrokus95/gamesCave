@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Change password - done  
+{% endblock title %}
+
+
+{%block content %}
+<form class="first-section" action="{% url 'editUserData' %}" method="POST" enctype="multipart/form-data">
+<div class="container grey rounded mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-4 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5 mb-2" width="250px" src="{{ user.profile.photo.url }}"><span class="font-weight-bold text-white-50"><b>{{profile_form.nick.value}}</b></span><span> </span></div>
+        </div>
+        <div class="col-md-5 border-right">
+            <div class="p-2 py-5">
+
+				{% if msg %}
+				<h4 class="text-center text-white">{{msg}}</h4>
+				{% endif %}
+
+                <div class="d-flex justify-content-between align-items-center mb-3">
+					<h4 class="text-right text-white">Profile Settings</h4>
+                </div>
+                <div class="row mt-2">
+                    <div class="col-md-6 mb-2">
+						<label class="labels" for="{{user_form.first_name.auto_id}}">Imię</label>
+						{{user_form.first_name}}
+					</div>
+                    <div class="col-md-6">
+						<label class="labels" for="{{user_form.last_name.auto_id}}">Nazwisko</label>
+						{{user_form.last_name}}
+					</div>
+
+					<div class="col-md-12">
+						<label class="labels" for="{{user_form.email.auto_id}}">Email</label>
+						{{user_form.email}}
+					</div> 
+                </div>
+                <div class="row mt-3">
+
+						<div class="col-md-12 mb-2">
+							<label for="{{ profile_form.nick.auto_id }}" class="labels">Nick</label>
+							{{ profile_form.nick }}
+						</div>
+						<div class="col-md-12 mb-2">
+							<label for="{{ profile_form.phone_number.auto_id }}" class="labels">Numer telefonu</label>
+							{{ profile_form.phone_number }}
+						</div>
+						<div class="col-md-12 mb-2">
+							<label for="{{ profile_form.bank_account.auto_id }}" class="labels">Numer konta</label>
+							{{ profile_form.bank_account }}
+						</div>
+						<div class="col-md-12 mb-2">
+							<label for="{{ profile_form.photo.auto_id }}" class="labels">Zdjęcie profilowe</label>
+							<input type="file" class="form-control" name="photo" id="id_photo" accept="image/">
+						</div>
+                </div>
+				{%csrf_token%}
+                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit">Save Profile</button></div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</form>
+
+{% endblock content %}

@@ -38,7 +38,8 @@
 					class="search-box"
 					placeholder="Hi {{ user_first_name }}! What you are looking for ?"
 				/>"
-				<button class="avatar_btn"><img class="avatar" src="{{ user.profile.photo.url }}" alt=""></button>
+				<a href="{% url 'editUserData'%}"><button class="avatar_btn"><img class="avatar" src="{{ user.profile.photo.url }}" alt=""></button></a>
+				
 				{% if user.is_authenticated %}
 				<a href="{% url 'logOutUser' %}" class="login-link">Logout</a>
 				{%else%}

@@ -10,7 +10,7 @@ class Profile(models.Model):
     ]
     
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    nick = models.CharField(max_length=20, blank=False, unique=True)
+    nick = models.CharField(max_length=20, blank=False, null=False, unique=True)
     photo = models.ImageField(upload_to='users/avatars/', default='users/avatars/anonymous.png', blank=True)
     phone_number = models.CharField(max_length=9, blank=True, null=True)
     bank_account = models.CharField(max_length=26, blank=True, null=True)
