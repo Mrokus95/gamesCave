@@ -36,8 +36,8 @@
 				<input
 					type="text"
 					class="search-box"
-					placeholder="Hi {{ user_first_name }}! What you are looking for ?"
-				/>"
+					placeholder="Hi {{ user_first_name }}! What are you looking for ?"
+				/>
 				<a href="{% url 'editUserData'%}"><button class="avatar_btn"><img class="avatar" src="{{ user.profile.photo.url }}" alt=""></button></a>
 				
 				{% if user.is_authenticated %}
