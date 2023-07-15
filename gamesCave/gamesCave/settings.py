@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'games',
     'authSystem',
     'profiles',
+    'newsRoom',
     "verify_email.apps.VerifyEmailConfig",
     'social_django',
     'django_extensions',
@@ -114,7 +115,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'pl-pl'
 
 TIME_ZONE = 'Europe/Warsaw'
 

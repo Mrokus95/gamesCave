@@ -23,6 +23,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('auth/', include('authSystem.urls')),
     path('profile/', include('profiles.urls')),
+    path('newsroom/', include('newsRoom.urls')),
     path('verification/', include('verify_email.urls')),
     path('', include('games.urls'))
 ]
