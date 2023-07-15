@@ -54,6 +54,7 @@
 							<button class="btn btn-outline-light btn-lg px-5" type="submit">
 								Login
 							</button>
+							<input type="hidden" name="next" value="{{ next }}" />
 							<div class="d-flex justify-content-center text-center mt-4 pt-1">
 								<a href='{% url "social:begin" "facebook" %}' class="text-white"
 									><i class="fab fa-facebook-f fa-lg"></i

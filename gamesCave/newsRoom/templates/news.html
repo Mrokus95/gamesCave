@@ -3,6 +3,20 @@
 {%endblock title%} {% block content%}
 
 <section class="mt-5 container max-width-90">
+    
+	
+	{% if user.is_staff %}
+	<div class="mb-4 d-flex justify-content-end">
+        <div class="mr-auto" style="margin-right: 3%;">
+            <a href="{% url 'home'%}">
+                <button class="btn btn-link p-0 border-0">
+                    <i class="fa-solid fa-plus fa-2xl" style="color: #f0f000;"></i>
+                </button>
+            </a>
+        </div>
+    </div>
+	{% endif %}
+
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		{% for news in news %}
 		<div class="col">

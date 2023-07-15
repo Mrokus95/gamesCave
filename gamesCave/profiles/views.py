@@ -15,8 +15,7 @@ def editUserDataView(request):
         profile_form = ProfileEditForm(instance=request.user.profile, data=request.POST, files=request.FILES)
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
-        nickname = request.POST.get('nick')
-        photo = request.POST.get('photo')
+
         phone_number = request.POST.get('phone_number')
         bank_number = request.POST.get('bank_account')
         msg = []
@@ -59,8 +58,10 @@ def editUserDataView(request):
 
             # Update form data for profile model
             updated_profile_data = profile_form.save(commit=False)
-            updated_profile_data.phone_number = cleared_phone_number
-            updated_profile_data.bank_account = cleared_bank_number
+            if phone_number:
+                updated_profile_data.phone_number = cleared_phone_number
+            if bank_number:    
+                updated_profile_data.bank_account = cleared_bank_number
             updated_profile_data.save()
             msg = "Profil zaktualizowany"
         else:

@@ -10,6 +10,8 @@ import re
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView, PasswordResetView
 from django.urls import reverse_lazy
 from profiles.models import Profile
+from django.utils.http import url_has_allowed_host_and_scheme
+from django.http import HttpResponseBadRequest
 
 
 # Create your views here.
@@ -71,22 +73,27 @@ def register(request):
 
 def logInUser(request):
     if request.method == 'GET':
-        return render(request, 'login.html', {'form': AuthenticationForm()})
+        return render(request, "login.html", {'form': AuthenticationForm(), 'next': request.GET.get('next', '')})
+
     elif request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        user = authenticate(username=username, password=password) 
-        print(user)
+        user = authenticate(request, username=username, password=password)
         if user is not None and user.is_active:
             login(request, user)
+            redirect_to = request.POST.get('next', '')
+            if redirect_to and url_has_allowed_host_and_scheme(redirect_to, allowed_hosts=None):
+                return redirect(redirect_to)
             return redirect('home')
         else:
-            username = User.objects.filter(username=username).exists()
-            if username:
-                error = ['Incorrect password']
+            username_exists = User.objects.filter(username=username).exists()
+            if username_exists:
+                error = 'Incorrect password'
             else:
-                error = ['Invalid or inactive username']
+                error = 'Invalid or inactive username'
             return render(request, 'login.html', {'form': AuthenticationForm(), 'error': error})
+
+    return HttpResponseBadRequest()
 
 def logOutUser(request):
     logout(request)
