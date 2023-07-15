@@ -1,13 +1,41 @@
-{% extends 'base.html' %}
-{% load static %}
-{% block title%}
-	GameCave
-{% endblock title%}
-{% block content%}
+{% extends 'base.html' %} {% load static %} {% block title %}News Details
+{%endblock title %} {% block content %}
+<section class="news-details">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 offset-md-2">
+				<div class="news-card">
+					<h2 class="news-title">{{ news.title }}</h2>
+					<img
+						src="{{ news.image.url }}"
+						alt="{{ news.title }}"
+						class="news-image"
+					/>
+					<div class="news-meta">
+						<p class="news-author">Author: {{ news.author }}</p>
+						<p class="news-date">Published: {{ news.publish }}</p>
+					</div>
+					<p class="news-body">{{ news.body }}</p>
+					<div class="news-tags">
+						<h4 class="tags-title">Tags:</h4>
+						<div class="tags-container">
+							{% for tag in news.tags.all %}
+							<span class="tag">{{ tag.name }}</span>
+							{% endfor %}
+						</div>
+						<div class="news-tags">
+							<div class="tags-container">
+								<span class="tag">Komentarze: 0</span>
+							</div>
+							<div class="tags-container">
+								<span class="tag">Polub</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
 
-
-	{{news.title}}
-	{{news.body}}
-
-		{% endblock content%}
-
+{% endblock content %}
