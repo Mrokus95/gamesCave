@@ -1,13 +1,15 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
 from django.contrib.auth.decorators import login_required
-from .models import News
+from .models import News, Profile
+from .forms import CommentForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.template.defaultfilters import slugify
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib import messages
 
 
 def staff_check(user):
@@ -17,7 +19,7 @@ def staff_check(user):
 @login_required
 def news_list(request):
     news = News.published.all()
-    paginator = Paginator(news, 3)
+    paginator = Paginator(news, 6)
 
     page_number = request.GET.get('page')
     try:
@@ -36,9 +38,39 @@ def news_list(request):
 
 @login_required
 def news_detail(request, slug, id):
+    profile = get_object_or_404(Profile, user=request.user)
+    news = get_object_or_404(News, slug=slug, id=id)
+    comments = news.comments.all().filter(status='published')
+
+    if request.method == 'POST':
+        comment_body = request.POST.get('body')
+        comment_form = CommentForm(request.POST)
+        
+        if len(comment_body) > 500:
+            messages.add_message(request, messages.ERROR, "Komentarz przekroczył maksymalną długość")
+            comment_form = CommentForm()
+            context = {
+                'comment_form': comment_form,
+                'comments': comments,
+                'news': news
+                 }
+            return render(request, 'news_detail.html', context)
+
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.author = profile
+            new_comment.news = news
+            new_comment.save()
+            return redirect(request.path)
+    else:
+        comment_form = CommentForm()
+
     context = {
-    'news' : get_object_or_404(News, slug=slug, id=id)
+        'comment_form': comment_form,
+        'comments': comments,
+        'news': news
     }
+
     return render(request, 'news_detail.html', context)
 
 class NewsCreateView(UserPassesTestMixin, CreateView):
@@ -48,7 +80,7 @@ class NewsCreateView(UserPassesTestMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
         form.instance.slug = slugify(form.instance.title)
-        return super().form_valid(form)\
+        return super().form_valid(form)
     
     def test_func(self):
         return staff_check(self.request.user)

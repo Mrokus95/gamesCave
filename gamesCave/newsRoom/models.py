@@ -20,7 +20,7 @@ class News(models.Model):
 
     title= models.CharField(max_length=250)
     slug = models.SlugField(max_length=250, unique_for_date='publish')
-    author = models.ForeignKey(Profile, on_delete=models.SET_DEFAULT, default='Anonymous', related_name='news', to_field='nick')
+    author = models.ForeignKey(Profile, on_delete=models.SET_DEFAULT, default='Anonymous', related_name='profile', to_field='nick')
     body = models.TextField()
     image = models.ImageField(upload_to='news/main_images/', blank=False, null=False)
     publish = models.DateTimeField(default=timezone.now())
@@ -40,3 +40,21 @@ class News(models.Model):
     def get_absolute_url(self):
         return reverse('news_detail', kwargs={'slug': self.slug, 'id': self.id})
     
+class Comments(models.Model):
+    STATUS_CHOICES = (
+        ('reported', 'Reported'),
+        ('published', 'Published'),
+        )
+
+    author = models.ForeignKey(Profile, on_delete=models.SET_DEFAULT, default='Anonymous', related_name='comment_profile', to_field='nick')
+    body = models.TextField(null=False, blank=False, max_length=500)
+    news = models.ForeignKey(News, on_delete=models.CASCADE, related_name='comments')
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+    status = models.CharField(choices=STATUS_CHOICES, default='published', max_length=9)
+
+    class Meta:
+        ordering = ('-created',)
+
+    def __str__(self):
+        return f'Komentarz dodany przez {self.author} do artykułu {self.news}'

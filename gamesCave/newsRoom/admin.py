@@ -1,5 +1,5 @@
 from django.contrib import admin
-from . models import News
+from . models import News, Comments
 
 # Register your models here.
 
@@ -15,4 +15,13 @@ class NewsAdmin(admin.ModelAdmin):
     def short_body(self, obj):
         short_body = obj.body.split()[:10]
         return ' '.join(short_body)
-    
+
+@admin.register(Comments)
+class CommentsAdmin(admin.ModelAdmin):
+    list_display = ['author','news','short_body', 'created', 'updated', 'status']
+    list_filter = ['author','news','status']      
+    search_fields = ['news', 'author', 'body']
+
+    def short_body(self, obj):
+        short_body = obj.body.split()[:10]
+        return ' '.join(short_body)

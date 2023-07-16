@@ -97,3 +97,11 @@ carousel2Prev.addEventListener("click", () => {
 	carousel2Position -= carousel2CardWidth;
 	carousel2Track.style.transform = `translateX(${carousel2Position}px)`;
 });
+
+// Messages
+
+const introElement = document.getElementById("error");
+
+introElement.addEventListener("animationend", () => {
+    introElement.style.display = "none";
+});
