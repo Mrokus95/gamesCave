@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+Usuń artykuł
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center">Usuń artykuł</h2>
+    <div class="alert alert-danger" role="alert">
+        Czy na pewno chcesz usunąć artykuł "{{ object.title }}"?
+    </div>
+    <form method="post" action="{% url 'news_delete' pk=object.pk %}">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Usuń</button>
+        <a href="{% url 'news_detail' slug=object.slug id=object.id %}" class="btn btn-secondary">Anuluj</a>
+    </form>
+</div>
+{% endblock content %}

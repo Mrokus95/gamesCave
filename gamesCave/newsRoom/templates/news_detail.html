@@ -23,12 +23,18 @@
 							<span class="tag">{{ tag.name }}</span>
 							{% endfor %}
 						</div>
-						<div class="news-tags">
-							<div class="tags-container">
-								<span class="tag">Komentarze: 0</span>
+						<div class="d-flex justify-content-between">
+							<div class="m-1">
+								<a href="."><button class=" btn btn-info">Komentarze</button></a>
 							</div>
-							<div class="tags-container">
-								<span class="tag">Polub</span>
+							<div class="m-1">
+								<a href="."><button class=" btn"><i class="fa-solid fa-heart fa-2xl" style="color: #c0c0c0;"></i></button></a>
+							</div>
+							<div class="m-1">
+								<a href="{%url 'news_delete' pk=news.id %}"><button class=" btn btn-danger">Usuń</button></a>
+							</div>
+							<div class="m-1">
+								<a href="{%url 'news_update' pk=news.id %}"><button class=" btn btn-warning">Edytuj</button></a>
 							</div>
 						</div>
 					</div>

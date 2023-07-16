@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+News Details
+{% endblock title %}
+
+{% block content %}
+<div class="container news-card mt-5 ">
+    <h2 class="text-center text-white">Edytuj artykuł</h2>
+    <form method="post" action="{% url 'news_update' pk=object.pk %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_title" class="form-label text-white">Title:</label>
+            <input type="text" name="title" value="{{ object.title }}" maxlength="250" required="" id="id_title" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="id_body" class="form-label text-white">Body:</label>
+            <textarea name="body" cols="40" rows="10" required="" id="id_body" class="form-control">{{ object.body }}</textarea>
+        </div>
+        <div class="mb-3">
+            <label for="id_image" class="form-label text-white">Image:</label>
+            <a href="{{ object.image.url }}">{{ object.image.url }}</a>
+            <input type="file" name="image" accept="image/*" id="id_image" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-danger">Zmień</button>
+    </form>
+</div>
+{% endblock content %}

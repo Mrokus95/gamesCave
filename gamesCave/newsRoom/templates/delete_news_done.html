@@ -1,0 +1,23 @@
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %} 
+Resetowanie hasła 
+{% endblock title %} 
+
+
+
+{%block content %}
+<section class="first-section text-white d-flex flex-column justify-content-center align-items-center">
+	<div class="container-fluid text-center" >
+		<h1>Artykuł usunięty.</h1>
+		<p>
+			W celu dalszej pracy przejdź do 
+			<a href="{% url 'news' %}">listy artykułów</a>.
+		</p>
+	</div>
+	<div>
+		<img src="{% static 'games/images/success.png' %}" alt="">
+	</div>
+</section>
+{% endblock content %}
+
