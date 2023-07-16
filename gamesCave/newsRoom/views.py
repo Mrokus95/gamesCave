@@ -49,12 +49,8 @@ def news_detail(request, slug, id):
         if len(comment_body) > 500:
             messages.add_message(request, messages.ERROR, "Komentarz przekroczył maksymalną długość")
             comment_form = CommentForm()
-            context = {
-                'comment_form': comment_form,
-                'comments': comments,
-                'news': news
-                 }
-            return render(request, 'news_detail.html', context)
+            
+            return redirect(request.path)
 
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
