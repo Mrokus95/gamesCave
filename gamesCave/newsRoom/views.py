@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
 from django.contrib.auth.decorators import login_required
-from .models import News, Profile
+from .models import News, Profile, Comments
 from .forms import CommentForm
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
@@ -10,10 +10,17 @@ from django.template.defaultfilters import slugify
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 
 
 def staff_check(user):
     return user.is_authenticated and user.is_staff
+
+def owner_check(user, comment):
+    if user.is_authenticated and (comment.author == user or user.is_staff):
+        return True
+    return False
+
 
 # Create your views here.
 @login_required
@@ -81,6 +88,9 @@ class NewsCreateView(UserPassesTestMixin, CreateView):
     def test_func(self):
         return staff_check(self.request.user)
 
+    def handle_no_permission(self):
+        raise PermissionDenied()
+
 class NewsUpdateView(UserPassesTestMixin, UpdateView):
     model = News
     fields = ["title", "body", "image"]
@@ -88,6 +98,9 @@ class NewsUpdateView(UserPassesTestMixin, UpdateView):
     
     def test_func(self):
         return staff_check(self.request.user)
+    
+    def handle_no_permission(self):
+        raise PermissionDenied()
 
 class NewsDeleteView(UserPassesTestMixin, DeleteView):
     model = News
@@ -99,3 +112,30 @@ class NewsDeleteView(UserPassesTestMixin, DeleteView):
     
     def test_func(self):
         return staff_check(self.request.user)
+    
+    def handle_no_permission(self):
+        raise PermissionDenied()
+
+
+class CommentUpdateView(UserPassesTestMixin, UpdateView):
+    model = Comments
+    fields = ["body"]
+
+
+    def test_func(self):
+        comment = self.get_object()
+        return owner_check(self.request.user, comment)
+    
+    def get_success_url(self):
+        return reverse_lazy('news_detail', kwargs={'slug': self.object.news.slug, 'id': self.object.news.id})
+
+    def handle_no_permission(self):
+        raise PermissionDenied()
+    
+    def form_valid(self, form):
+        messages.success(self.request, "Komentarz został zaktualizowany pomyślnie.")
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, "Komentarz jest za długi.")
+        return super().form_invalid(form)

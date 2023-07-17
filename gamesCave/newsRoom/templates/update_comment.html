@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+News Details
+{% endblock title %}
+
+{% block content %}
+<div class="container news-card mt-5 ">
+{% if messages%}
+{% for message in messages %}
+    {% if message.tags == 'error' %}
+        <span class="alert alert-danger message red" id="error">Błąd: {{ message }}</span>
+    {% endif %}
+{% endfor %}
+{% endif %}
+    <h2 class="text-center text-white">Edytuj komentarz</h2>
+    <form method="post" action="{% url 'news_update' pk=object.pk %}">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_body" class="form-label text-white">Body:</label>
+            <textarea name="body" cols="40" rows="10" required="" id="id_body" class="form-control">{{ object.body }}</textarea>
+        </div>
+        <button type="submit" class="btn btn-danger">Zmień</button>
+    </form>
+</div>
+{% endblock content %}

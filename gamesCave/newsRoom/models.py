@@ -58,3 +58,4 @@ class Comments(models.Model):
 
     def __str__(self):
         return f'Komentarz dodany przez {self.author} do artykułu {self.news}'
+    
