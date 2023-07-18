@@ -90,15 +90,31 @@ News Details
 							</div>
 							<div class="col-md-9">
 							<div class="d-flex align-items-center">
-								<span class="form-control mb-4 centered-textarea comment" id="message" >{{comment.body}}</span>
+								{% if comment.status == 'banned' %}
+									<span class="form-control mb-4 centered-textarea comment" id="message" >Komentarz usunięto w związku z złamaniem regulaminu.</span>
+								{% else %}
+									<span class="form-control mb-4 centered-textarea comment" id="message" >{{comment.body}}</span>
+								{% endif %}
 							</div>
 							</div>
 							<div class="col-md-1 mb-4">
-								{% if comment.author == user or user.is_staff %}
-									<a href="{% url 'news_update' pk=comment.id%}"><button class=" btn bg-transparent"> <i class="fa-solid fa-pen-fancy fa-xl" style="color: #c0c0c0;"></i></button></a>
-									<a href="http://"><button class=" btn bg-transparent"> <i class="fa-solid fa-trash fa-xl" style="color: #ff0000;"></i> </button></a>
+								{% if comment.author == request.user.profile or user.is_staff %}
+									<a href="{% url 'comment_update' pk=comment.id%}"><button class=" btn bg-transparent"> <i class="fa-solid fa-pen-fancy fa-xl" style="color: #c0c0c0;"></i></button></a>
+									{%if comment.status != 'banned' %}
+									<form action="{% url 'comment_delete' pk=comment.id %}" method="post" onsubmit="return confirm('Napewno chcesz usunąć ten komentarz?');">
+										{% csrf_token %}
+										<button class="btn bg-transparent" type="submit">
+											<i class="fa-solid fa-trash fa-xl" style="color: #ff0000;"></i>
+										</button>
+									</form>
+									{% endif%}
 								{% endif %}
-								<a href="http://"><button class="btn bg-transparent"> <i class="fa-solid fa-skull-crossbones fa-xl" style="color: #ff8000;"></i></button></a>
+								{%if comment.status != 'banned' and comment.author != request.user.profile %}
+								<form action="{% url 'comment_report' pk=comment.id %}" method="post" onsubmit="return confirm('Napewno chcesz zgłosić ten komentarz?');">
+									{% csrf_token %}
+									<button class="btn bg-transparent"> <i class="fa-solid fa-skull-crossbones fa-xl" style="color: #ff8000;"></i></button>
+								</form>
+								{% endif%}
 							</div>
 						</div>
 						{% endfor %}

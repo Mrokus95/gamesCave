@@ -14,7 +14,7 @@ News Details
 {% endfor %}
 {% endif %}
     <h2 class="text-center text-white">Edytuj komentarz</h2>
-    <form method="post" action="{% url 'news_update' pk=object.pk %}">
+    <form method="post" action="{% url 'comment_update' pk=object.pk %}">
         {% csrf_token %}
         <div class="mb-3">
             <label for="id_body" class="form-label text-white">Body:</label>

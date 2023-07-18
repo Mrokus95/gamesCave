@@ -44,6 +44,7 @@ class Comments(models.Model):
     STATUS_CHOICES = (
         ('reported', 'Reported'),
         ('published', 'Published'),
+        ('banned', 'Banned'),
         )
 
     author = models.ForeignKey(Profile, on_delete=models.SET_DEFAULT, default='Anonymous', related_name='comment_profile', to_field='nick')
