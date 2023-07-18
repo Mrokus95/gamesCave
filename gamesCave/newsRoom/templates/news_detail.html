@@ -85,15 +85,16 @@ News Details
 						<div class="row m-2 align-items-center">
 							<div class="col-md-2 text-center">
 							<div class="d-flex align-items-center justify-content-center square-image-container">
-								<img class="square-image profile-photo mb-4" src="{{comment.author.photo.url }}" alt="">
+								<img class="square-image profile-photo " src="{{comment.author.photo.url }}" alt="">
 							</div>
 							</div>
-							<div class="col-md-9">
+							<div class="col-md-9 mb-4">
+								<span class="text-white">Komentarz {{comment.author|capfirst}}:</span>
 							<div class="d-flex align-items-center">
 								{% if comment.status == 'banned' %}
-									<span class="form-control mb-4 centered-textarea comment" id="message" >Komentarz usunięto w związku z złamaniem regulaminu.</span>
+									<span class="form-control  centered-textarea comment" id="message" >Komentarz usunięto w związku z złamaniem regulaminu.</span>
 								{% else %}
-									<span class="form-control mb-4 centered-textarea comment" id="message" >{{comment.body}}</span>
+									<span class="form-control  centered-textarea comment" id="message" >{{comment.body}}</span>
 								{% endif %}
 							</div>
 							</div>
@@ -118,6 +119,44 @@ News Details
 							</div>
 						</div>
 						{% endfor %}
+
+
+						{%if num_pages > 1%}
+						<div class="pagination justify-content-center mt-5">
+							<ul class="pagination">
+								{% if comments.has_previous %}
+								<li class="page-item">
+									<a
+										class="page-link"
+										href="?page={{ comments.previous_page_number }}"
+										tabindex="-1"
+										aria-disabled="true"
+										>Poprzednia</a
+									>
+								</li>
+								{% endif %} 
+								{% for num in comments.paginator.page_range %} 
+								{% if num == comments.number %}
+								<li class="page-item active">
+									<span class="page-link">{{ num }}</span>
+								</li>
+								{% elif num > comments.number|add:'-3' and num < comments.number|add:'3' %}
+								<li class="page-item">
+									<a class="page-link" href="?page={{ num }}">{{ num }}</a>
+								</li>
+								{% endif %} 
+								{% endfor %}
+								{% if comments.has_next %}
+								<li class="page-item">
+									<a class="page-link" href="?page={{ comments.next_page_number }}">Następna</a>
+								</li>
+								{% endif %}
+							</ul>
+						</div>
+						{%endif%} 
+
+
+
 					  </div>
 					</div>
 				</div>
@@ -126,5 +165,6 @@ News Details
 	</div>
 </section>
 {% endwith %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="{% static 'games/JS/comment.js' %}"></script>
 {% endblock content %}

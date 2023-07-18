@@ -55,16 +55,25 @@ class NewsListView(LoginRequiredMixin, View):
     
 class NewsDetailView(LoginRequiredMixin, View):
     
-
     def get(self, request, slug, id):
         news = get_object_or_404(News, slug=slug, id=id)
         comments = news.comments.all()
         comment_form = CommentForm()
+        paginator = Paginator(comments, 5)
+        page_number = request.GET.get('page')
+
+        try:
+            paginated_comments = paginator.page(page_number)
+        except PageNotAnInteger:
+            paginated_comments = paginator.page(1)
+        except EmptyPage:
+            paginated_comments = paginator.page(paginator.num_pages)
 
         context = {
             'comment_form': comment_form,
-            'comments': comments,
-            'news': news
+            'comments': paginated_comments,  # Użyj zmiennej paginated_comments
+            'news': news,
+            'num_pages': paginator.num_pages
         }
 
         return render(request, 'news_detail.html', context)
