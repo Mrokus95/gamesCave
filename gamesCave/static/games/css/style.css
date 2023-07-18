@@ -68,7 +68,6 @@ body {
 	height: 30px;
 	color: #fff;
 	width: 250px;
-	text-transform: capitalize;
 	font-size: 16px;
 	font-weight: 500;
 	transition: width 0.5s;
@@ -455,8 +454,9 @@ body {
 	color: white;
 }
 .first-section img {
-	max-height: 490px;
-	max-width: 649px;
+	width: height;
+	height: 200px;
+	width: 200px;
 }
 
 @media (max-width: 992px) {
@@ -499,6 +499,7 @@ body {
 
 .avatar {
 	height: 50px;
+	width: 50px;
 	border-radius: 50%;
 	transition: height 0.3s;
 }
@@ -690,8 +691,8 @@ body {
 
 .profile-photo{
 	border-radius: 50%;
-	max-height: 80px;
-	max-width: 80px;
+	height: 80px;
+	width: 80px;
 }
 
 .comment{

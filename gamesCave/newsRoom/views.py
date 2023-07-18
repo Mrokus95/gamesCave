@@ -58,6 +58,7 @@ class NewsDetailView(LoginRequiredMixin, View):
     def get(self, request, slug, id):
         news = get_object_or_404(News, slug=slug, id=id)
         comments = news.comments.all()
+        total_comments = comments.count()
         comment_form = CommentForm()
         paginator = Paginator(comments, 5)
         page_number = request.GET.get('page')
@@ -73,7 +74,8 @@ class NewsDetailView(LoginRequiredMixin, View):
             'comment_form': comment_form,
             'comments': paginated_comments,  # Użyj zmiennej paginated_comments
             'news': news,
-            'num_pages': paginator.num_pages
+            'num_pages': paginator.num_pages,
+            "total_comments": total_comments
         }
 
         return render(request, 'news_detail.html', context)
