@@ -27,7 +27,7 @@ class News(models.Model):
     publish = models.DateTimeField(default=timezone.now())
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
-    status = models.CharField(choices=STATUS_CHOICES, max_length=9)
+    status = models.CharField(choices=STATUS_CHOICES, default='draft', max_length=9)
     tags = TaggableManager()
     objects = models.Manager()
     published = PublishedManager()

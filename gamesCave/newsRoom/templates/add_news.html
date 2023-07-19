@@ -26,6 +26,10 @@ News Details
               <label for="id_image" class="form-label text-white">Zdjęcie</label>
               <input type="file" name="image" accept="image/*" required="" id="id_image" class="form-control">
             </div>
+            <div class="col-md-12 mb-2">
+              <label class="form-label text-white" for="id_tags">Tagi</label>
+              <input type="text" name="tags" maxlength="250" required="" id="id_tags" class="form-control" placeholder ="Tagi można wpisywać po przecinku">
+            </div>
           </div>
           {% csrf_token %}
           <div class="mt-5 text-center">

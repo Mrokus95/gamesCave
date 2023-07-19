@@ -13,6 +13,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.mixins import UserPassesTestMixin
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
+from taggit.forms import TagWidget
 
 
 
@@ -124,8 +125,11 @@ class NewsDetailView(LoginRequiredMixin, View):
     
 class NewsCreateView(UserPassesTestMixin, CreateView):
     model = News
-    fields = ["title", "body", "image"]
-
+    fields = ["title", "body", "image", 'tags']
+    widgets = {
+            'tags': TagWidget(),
+        }
+    
     def form_valid(self, form):
         form.instance.author = self.request.user.profile
         form.instance.slug = slugify(form.instance.title)

@@ -38,6 +38,7 @@
 					class="search-box"
 					placeholder="Hej {{ user.profile.nick }} ! Czego szukasz ?"
 				/>
+				
 				<a href="{% url 'editUserData'%}"><button class="avatar_btn"><img class="avatar" src="{{ user.profile.photo.url }}" alt=""></button></a>
 				
 				{% if user.is_authenticated %}
