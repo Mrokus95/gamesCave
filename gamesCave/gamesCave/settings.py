@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "verify_email.apps.VerifyEmailConfig",
     'social_django',
     'django_extensions',
+    'taggit'
 ]
 
 MIDDLEWARE = [

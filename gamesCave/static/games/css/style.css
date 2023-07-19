@@ -673,6 +673,7 @@ body {
 	}
 
 	.tags-container {
+		height: 10px;
 		display: flex;
 		flex-wrap: wrap;
 	}
@@ -682,7 +683,7 @@ body {
 		border-radius: 4px;
 		padding: 4px 8px;
 		margin-right: 10px;
-		margin-bottom: 10px;
+		margin: 10px, 10px, 0px, 10px;
 		font-size: 14px;
 	}
 

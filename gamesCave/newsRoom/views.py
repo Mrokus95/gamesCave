@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger 
-from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 from .models import News, Profile, Comments
+from taggit.models import Tag
 from .forms import CommentForm
 from django.urls import reverse_lazy
 from django.views import View
@@ -35,6 +36,10 @@ class NewsListView(LoginRequiredMixin, View):
     def get(self, *args, **kwargs):
 
         news = News.published.all()
+        tag = kwargs.get('tag')
+        if tag:
+            tag= get_object_or_404(Tag, slug=tag)
+            news = news.filter(tags__in=[tag])
         paginator = Paginator(news, 6)
 
         page_number = self.request.GET.get('page')
@@ -47,7 +52,8 @@ class NewsListView(LoginRequiredMixin, View):
 
         context = {
             'news': news,
-            'num_pages': paginator.num_pages
+            'num_pages': paginator.num_pages,
+            'tag': tag
         }
 
         return render(self.request, 'news.html', context)  
@@ -55,6 +61,14 @@ class NewsListView(LoginRequiredMixin, View):
     
 class NewsDetailView(LoginRequiredMixin, View):
     
+    def get_similar_posts(self,obj):
+
+        news_tags_ids = obj.tags.values_list('id', flat=True)
+        similar_posts = News.published.filter(tags__in=news_tags_ids).exclude(id=obj.id)
+        similar_posts = similar_posts.annotate(same_tags=Count('tags')).order_by('-same_tags','-publish')[:4]
+
+        return similar_posts
+
     def get(self, request, slug, id):
         news = get_object_or_404(News, slug=slug, id=id)
         comments = news.comments.all()
@@ -70,13 +84,16 @@ class NewsDetailView(LoginRequiredMixin, View):
         except EmptyPage:
             paginated_comments = paginator.page(paginator.num_pages)
 
+        similar_posts = self.get_similar_posts(news)
         context = {
             'comment_form': comment_form,
             'comments': paginated_comments,  # Użyj zmiennej paginated_comments
             'news': news,
             'num_pages': paginator.num_pages,
-            "total_comments": total_comments
+            'total_comments': total_comments,
+            'similar_posts': similar_posts
         }
+
 
         return render(request, 'news_detail.html', context)
     
@@ -104,6 +121,7 @@ class NewsDetailView(LoginRequiredMixin, View):
             return redirect(request.path)
 
 
+    
 class NewsCreateView(UserPassesTestMixin, CreateView):
     model = News
     fields = ["title", "body", "image"]

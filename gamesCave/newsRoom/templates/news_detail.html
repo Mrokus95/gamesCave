@@ -31,9 +31,9 @@ News Details
 					<p class="news-body">{{ news.body }}</p>
 					<div class="news-tags">
 						<h4 class="tags-title">Tags:</h4>
-						<div class="tags-container">
+						<div class="d-flex">
 							{% for tag in news.tags.all %}
-							<span class="tag">{{ tag.name }}</span>
+							<a href="{%url 'news_tag' tag=tag.slug %}"><button class="btn btn-primary m-1 ">{{ tag.name }}</button></a>
 							{% endfor %}
 						</div>
 						<div class="d-flex justify-content-between">
@@ -158,11 +158,18 @@ News Details
 							</ul>
 						</div>
 						{%endif%} 
-
-
-
 					  </div>
 					</div>
+				</div>
+				<div class="col-md-2" id="podobne">
+					<div class="news-card">
+					<div class='py-4'><h5 class="text-center text-white">Podobne newsy:</h5></div>
+					
+					{% for post in similar_posts %}
+						<a class="text-center text-white text-decoration-none" href="{% url 'news_detail' slug=post.slug id=post.id%}"><p>{{post.title}}</p></a>
+					{%endfor%}
+				</div>
+				
 				</div>
 			</div>
 		</div>

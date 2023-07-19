@@ -3,9 +3,8 @@ from . import views
 
 
 urlpatterns = [
-    # path('', views.news_list, name='news'),
     path('', views.NewsListView.as_view(), name='news'),
-    # path('detail/<str:slug>/<int:id>', views.news_detail, name='news_detail'),
+    path('tag/<slug:tag>/', views.NewsListView.as_view(), name='news_tag'),
     path('detail/<str:slug>/<int:id>', views.NewsDetailView.as_view(), name='news_detail'),
     path("add/", views.NewsCreateView.as_view(template_name="add_news.html"), name="news_add"),
     path("update/<int:pk>/", views.NewsUpdateView.as_view(template_name="update_news.html"), name="news_update"),

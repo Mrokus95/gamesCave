@@ -8,15 +8,17 @@
 	{% if user.is_staff %}
 	<div class="mb-4 d-flex justify-content-end">
         <div class="mr-auto" style="margin-right: 3%;">
-            <a href="{% url 'news_add'%}">
-                <button class="btn btn-link p-0 border-0">
-                    <i class="fa-solid fa-plus fa-2xl" style="color: #f0f000;"></i>
-                </button>
+				<a href="{% url 'news'%}"><button class="btn btn-danger"> Wszystkie news </button></a>
+				<a href="{% url 'news_add'%}"><button class="btn btn-link p-0 border-0 px-3">
+					<i class="fa-solid fa-plus fa-2xl" style="color: #f0f000;"></i>
+                </button></href></a>
             </a>
         </div>
     </div>
 	{% endif %}
-
+{%if tag %}
+<div class='d-flex flex-column text-center text-white font-weight-bold mb-3'><h1>News z tagiem : {{tag.name}} </h1></span></div>
+{%endif %}
 	<div class="row row-cols-1 row-cols-md-3 g-4">
 		{% for news in news %}
 		<div class="col">
