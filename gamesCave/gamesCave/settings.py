@@ -49,7 +49,8 @@ INSTALLED_APPS = [
     "verify_email.apps.VerifyEmailConfig",
     'social_django',
     'django_extensions',
-    'taggit'
+    'taggit',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -132,11 +133,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',
-]
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -181,6 +177,26 @@ SOCIAL_AUTH_TWITTER_SCOPE = [
 SOCIAL_AUTH_TWITTER_KEY = os.environ['SOCIAL_AUTH_TWITTER_KEY']
 SOCIAL_AUTH_TWITTER_SECRET = os.environ['SOCIAL_AUTH_TWITTER_SECRET']
 
+
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',
+]
+
 # Images
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media/'
+
+# S3 bucket
+
+AWS_ACCESS_KEY_ID = os.environ['AWS_ACCESS_KEY_ID']
+AWS_SECRET_ACCESS_KEY = os.environ['AWS_SECRET_ACCESS_KEY']
+AWS_STORAGE_BUCKET_NAME = os.environ['AWS_STORAGE_BUCKET_NAME']
+AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
+AWS_S3_FILE_OVERWRITE = os.environ['AWS_S3_FILE_OVERWRITE']
+AWS_DEFAULT_ACL = os.environ['AWS_DEFAULT_ACL']
+AWS_S3_VERIFY = os.environ['AWS_S3_VERIFY']
+AWS_S3_ADDRESSING_STYLE = os.environ['AWS_S3_ADDRESSING_STYLE']
+AWS_S3_ENDPOINT_URL = os.environ['AWS_S3_ENDPOINT_URL']
+DEFAULT_FILE_STORAGE = os.environ['DEFAULT_FILE_STORAGE']
+
