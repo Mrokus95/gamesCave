@@ -90,17 +90,26 @@ WSGI_APPLICATION = 'gamesCave.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#      'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ['NAME'],
+#         'USER': os.environ['USER'],
+#         'PASSWORD': os.environ['PASSWORD'],
+#         'HOST': os.environ['HOST'],
+#         'PORT': os.environ['PORT']
+#     }
+# }
 DATABASES = {
-     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.environ['NAME'],
-        'USER': os.environ['USER'],
-        'PASSWORD': os.environ['PASSWORD'],
-        'HOST': os.environ['HOST'],
-        'PORT': os.environ['PORT']
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'NAME': 'sqlite3.db',                      # Or path to database file if using sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
+        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
+        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -196,7 +205,7 @@ AWS_S3_REGION_NAME = os.environ['AWS_S3_REGION_NAME']
 AWS_S3_FILE_OVERWRITE = os.environ['AWS_S3_FILE_OVERWRITE']
 AWS_DEFAULT_ACL = os.environ['AWS_DEFAULT_ACL']
 AWS_S3_VERIFY = os.environ['AWS_S3_VERIFY']
+AWS_S3_SIGNATURE_NAME = os.environ['AWS_S3_SIGNATURE_NAME']
 AWS_S3_ADDRESSING_STYLE = os.environ['AWS_S3_ADDRESSING_STYLE']
 AWS_S3_ENDPOINT_URL = os.environ['AWS_S3_ENDPOINT_URL']
 DEFAULT_FILE_STORAGE = os.environ['DEFAULT_FILE_STORAGE']
-

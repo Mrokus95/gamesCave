@@ -28,7 +28,7 @@ News Details
 						<p class="news-author">Autor: {{ news.author }}</p>
 						<p class="news-date">Opublikowano: {{ news.publish }}</p>
 					</div>
-					<p class="news-body">{{ news.body }}</p>
+					<p class="news-body">{{ news.body|linebreaksbr }}</p>
 					<div class="news-tags">
 						<h4 class="tags-title">Tags:</h4>
 						<div class="d-flex">

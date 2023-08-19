@@ -24,7 +24,7 @@ class News(models.Model):
     author = models.ForeignKey(Profile, on_delete=models.SET_DEFAULT, default='Anonymous', related_name='profile', to_field='nick')
     body = models.TextField()
     image = models.ImageField(upload_to='news/main_images/', blank=False, null=False)
-    publish = models.DateTimeField(default=timezone.now())
+    publish = models.DateTimeField(default=timezone.now)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(choices=STATUS_CHOICES, default='draft', max_length=9)
